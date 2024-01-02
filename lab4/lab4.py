@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jan  1 22:38:43 2024
+
+@author: asus
+"""
 import pandas as pd
 import numpy as np
 import math
@@ -49,6 +55,7 @@ def decision_tree(data):
     
     if(len(data.columns)==1):
         return
+    
     else:
         attr = get_attr(data)
         root.label = attr
@@ -61,8 +68,9 @@ def get_rules(root, rule, rules):
     if not root.branch:
         rules.append(rule[:-1]+"=>"+root.label)
         return rules
+    
     for val in root.branch:
-        # print(val)
+        #print(val)
         get_rules(root.branch[val], rule+root.label+"="+str(val)+"^", rules)
     return rules
     
@@ -71,7 +79,7 @@ def test(tree, test_str):
         return tree.label
     return test(tree.branch[str(test_str[tree.label])], test_str)
     
-data = pd.read_csv("C:\\Users\\asus\\OneDrive\\Desktop\\VSCode\\Python\\lab4\\tennis.csv")
+data = pd.read_csv("tennis.csv")
 
 tree = decision_tree(data)
 rules = get_rules(tree," ",[])
